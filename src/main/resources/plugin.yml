@@ -1,0 +1,13 @@
+name: WorldBorder
+version: ${project.version}
+main: ca.encodeous.bentoworldborder.WorldBorder
+api-version: 1.13
+depend: [BentoBox,WorldBorderAPI]
+authors: [Encodeous]
+description: World Border for BSkyblock
+commands:
+  setislandsize:
+    description: Sets a player's island size
+    usage: /setislandsize <player> <size> (Requires encodeous.islandworldborder.set permission)
+    permission: encodeous.islandworldborder.set
+    aliases: [sis, islandsize]
