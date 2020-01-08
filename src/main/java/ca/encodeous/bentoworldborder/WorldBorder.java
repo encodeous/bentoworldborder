@@ -2,8 +2,11 @@ package ca.encodeous.bentoworldborder;
 
 import com.github.yannicklamprecht.worldborder.api.BorderAPI;
 import com.github.yannicklamprecht.worldborder.api.WorldBorderApi;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import world.bentobox.bentobox.BentoBox;
@@ -40,8 +43,11 @@ public final class WorldBorder extends JavaPlugin {
         if(is.isPresent()){
             int size = is.get().getProtectionRange();
             UserBorder.SetUserBorder(player,size,is.get().getCenter());
+            if(!is.get().getProtectionBoundingBox().contains(loc.toVector()) && player.getGameMode() != GameMode.SPECTATOR){
+                player.sendMessage("You were teleported to spawn because you were outside the island.");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"spawn "+player.getName());
+            }
         }else{
-            System.out.println("No Island Found at "+loc.toString()+"! Removing Border!");
             UserBorder.RemoveUserBorder(player);
         }
     }
